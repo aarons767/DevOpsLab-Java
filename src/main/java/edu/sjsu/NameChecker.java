@@ -11,8 +11,35 @@ public class NameChecker {
      * @return True if input is a valid name, else false
      */
     public static boolean check(String input) {
-        // TODO: implement
+        boolean prevHypen = false;
 
-        return false;
+        if(input == null || input.length()<2 || input.length()>40){
+            return false;
+        }
+        if(!Character.isLetter(input.charAt(0))){
+            return false;
+        }
+
+        if(!Character.isLetter(input.charAt(input.length()-1))){
+            return false;
+        }
+        for (int i = 1; i < input.length(); i++) {
+            char thisChar = input.charAt(i);
+    
+            if (!Character.isLetter(thisChar) && thisChar != '-' && thisChar != '\'') {
+                return false;
+            }
+    
+            if (thisChar == '-') {
+                if (prevHypen) {
+                    return false; 
+                }
+                prevHypen = true; 
+            } else {
+                prevHypen = false; 
+            }
+        }
+
+        return true;
     }
 }
